@@ -1,12 +1,12 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var port = process.env.PORT || 12345;
+var PORT = process.env.PORT || 12345;
 
 app.get('/', function(req, res){
   res.send(`
     <h1>Testando o backend do realtime editor</h1>
-    <p>A aplicação está rodando na porta ${port}</p>
+    <p>A aplicação está rodando na porta ${PORT}</p>
 `);
 });
 
