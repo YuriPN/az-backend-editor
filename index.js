@@ -4,6 +4,10 @@ var io = require('socket.io')(http);
 
 const PORT = 5000
 
+app.get('/', function(req, res){
+  res.send('<h1>Testando o backend do realtime editor</h1>');
+});
+
 io.on('connection', function(client){
     client.on('user connect', function(room){
         console.log('cliente '+client.id+' entrou na sala '+room);
