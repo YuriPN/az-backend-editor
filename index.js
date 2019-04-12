@@ -10,8 +10,6 @@ app.get('/', function(req, res){
 `);
 });
 
-const setUserOnRoom = require('./service/firebaseService').setUserOnRoom
-
 const colors = ["#c06b74",
 "#3cc755",
 "#9841b8",
