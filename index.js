@@ -120,36 +120,20 @@ function getColor(){
 }
 
 io.on('connection', function(client){
-    
-    client.on('user connect', function(newConnection){
-
-        var name = newConnection.user
-        var room = newConnection.docId
-        var clientId = client.id
-        var color = getColor();
-
+    client.on('test', function(){
+        console.log('testado')
+    })
+    client.on('user connect', function(room){
+        console.log('cliente '+client.id+' entrou na sala '+room);
         client.join(room);
+        client.on('document change', function(html){
+            client.to(room).emit('update document', html)
+        })   
+    })
 
-        io.to(room).emit('new user', {name, room, clientId,color});
-
-        client.on('disconnect', function () {
-            io.to(room).emit('user disconnected', {name, room, clientId});
-        });
-        client.on('update document', function(document){
-            client.to(room).emit('update document', document);            
-        });
-    });
-    client.on('others users on room', function(received){
-        var users = received.users
-        var toUser = received.toUser
-
-        io.to(toUser).emit('users on room', users)
-    });
-
-    client.on('msg', function(msg, id){
-        client.to(id).emit('user Message', msg);
-    });
-    
+    client.on('disconnect', function(){
+        console.log('usuário '+client.id+' saiu')
+    }) 
 });
 
 http.listen(PORT, function(){
