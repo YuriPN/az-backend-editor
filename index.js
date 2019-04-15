@@ -38,7 +38,7 @@ io.on('connection', function(client){
         client.on('disconnect', function () {
             io.to(room).emit('user disconnected', {name, room, clientId});
         });
-        client.on('update document', function(document){
+        client.on('document change', function(document){
             client.to(room).emit('update document', document);            
         });
     });
